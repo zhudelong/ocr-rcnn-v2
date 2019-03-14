@@ -5,7 +5,6 @@ import numpy as np
 import tensorflow as tf
 from PIL import Image, ImageDraw, ImageFont
 
-# install libjpeg-dev libpng12-dev pillow matplotlib libfreetype6-dev libxml2-dev libxslt1-dev lxml
 charset = {'0': 0,  '1': 1,  '2': 2,  '3': 3,  '4': 4,  '5': 5,
            '6': 6,  '7': 7,  '8': 8,  '9': 9,  'A': 10, 'B': 11,
            'C': 12, 'D': 13, 'E': 14, 'F': 15, 'G': 16, 'H': 17,
@@ -79,10 +78,10 @@ class CharacterRecognizer:
     if self.verbose:
       self.visualize_detection_result(image_np, text, score_ave)
 
-    if draw:
-      self.draw_result(image_np,text, score_ave)
 
-    return text, score_ave
+    img_show = self.draw_result(image_np, text, score_ave) if draw else image_np
+
+    return text, score_ave, np.array(img_show)
 
   @staticmethod
   def visualize_detection_result(image_np, text, scores):
@@ -98,13 +97,13 @@ class CharacterRecognizer:
     img_show = ImageDraw.Draw(img_pil)
     font = ImageFont.truetype('/Library/Fonts/Arial.ttf', 60)
     img_show.text((45, 60), text=text, font=font, fill=(255, 0, 255))
-    image_np = np.asarray(img_pil)
+    return img_pil
 
 
 if __name__ == '__main__':
   recognizer = CharacterRecognizer(verbose=False)
-  image = imageio.imread('/home/zhudelong/dataset/elevator_panel_database/buttons/test/7_14.png')
-  recognizer.predict(image,True)
-  image = Image.fromarray(image)
+  image = imageio.imread('./test_buttons/7_14.png')
+  _, _, img =recognizer.predict(image,True)
+  image = Image.fromarray(img)
   image.show()
   recognizer.clear_session()

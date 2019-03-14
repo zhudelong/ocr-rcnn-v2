@@ -32,6 +32,7 @@ def button_candidates(boxes, scores, image):
     button_positions.append([x_min, y_min, x_max, y_max])
   return button_patches, button_positions, button_scores
 
+
 def get_image_name_list(target_path):
     assert os.path.exists(target_path)
     image_name_list = []
@@ -45,21 +46,31 @@ if __name__ == '__main__':
     data_dir = './test_panels'
     data_list = get_image_name_list(data_dir)
     detector = ButtonDetector()
-    recognizer = CharacterRecognizer(verbose=False)
+    recognizer = CharacterRecognizer()
     overall_time = 0
     for data in data_list:
       img_path = os.path.join(data_dir, data+'.jpg')
       img_np = np.asarray(PIL.Image.open(tf.gfile.GFile(img_path)))
       t0 = cv2.getTickCount()
-      boxes, scores, _ = detector.predict(img_np)
+
+      boxes, scores, _ = detector.predict(img_np, True)
       button_patches, button_positions, _ = button_candidates(boxes, scores, img_np)
-      for button_img in button_patches:
-        button_text, button_score, _ =recognizer.predict(button_img)
+
+      for button_img, button_pos in zip(button_patches, button_positions):
+        button_text, button_score, button_draw =recognizer.predict(button_img, draw=True)
+        x_min, y_min, x_max, y_max = button_pos
+        button_rec = cv2.resize(button_draw, (x_max-x_min, y_max-y_min))
+        detector.image_show[y_min+6:y_max-6, x_min+6:x_max-6] = button_rec[6:-6, 6:-6]
+
       t1 = cv2.getTickCount()
       time = (t1-t0)/cv2.getTickFrequency()
       overall_time += time
       print('Time elapsed: {}'.format(time))
-      print(img_np.shape)
+      cv2.imshow('panels', detector.image_show)
+      cv2.waitKey(0)
+      #result_show = PIL.Image.fromarray(detector.image_show)
+      #result_show.show()
+      #result_show.save('./demos/'+data+'.jpg')
 
     average_time = overall_time / len(data_list)
     print('Average_used:{}'.format(average_time))

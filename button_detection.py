@@ -18,6 +18,7 @@ class ButtonDetector:
     self.output = []
     self.class_num = 1
     self.verbose = verbose
+    self.image_show = None
 
     self.init_detector()
     print('button detector initialized!')
@@ -71,7 +72,8 @@ class ButtonDetector:
     if self.verbose:
       self.visualize_detection_result(image_np, boxes, classes, scores, self.category_index)
     if draw:
-      self.draw_result(image_np, boxes, classes, scores, self.category_index)
+      self.image_show = np.copy(image_np)
+      self.draw_result(self.image_show, boxes, classes, scores, self.category_index)
 
     return boxes, scores, num
 
@@ -108,6 +110,6 @@ class ButtonDetector:
 
 if __name__ == '__main__':
   detector = ButtonDetector(verbose=True)
-  image = imageio.imread('/home/zhudelong/dataset/elevator_panel_database/images/8.jpg')
+  image = imageio.imread('./test_panels/image0.jpg')
   detector.predict(image)
   detector.clear_session()
