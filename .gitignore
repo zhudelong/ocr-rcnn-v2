@@ -6,3 +6,5 @@
 **/*.msg~
 *~
 *.pyc
+./frozen_model
+./frozen_model/*
