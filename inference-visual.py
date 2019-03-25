@@ -74,5 +74,6 @@ if __name__ == '__main__':
 
     average_time = overall_time / len(data_list)
     print('Average_used:{}'.format(average_time))
-
+    detector.clear_session()
+    detector.clear_session()
 

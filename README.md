@@ -1,6 +1,6 @@
 # Accurate and Efficient Elevator Button Localization
 
-OCR-RCNN-v2 is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed (640*480 in gtx1070ti).  Current version can also run in  laptops with at least 2GB  GPU memory.  The Nvidia TX-2 compatible version will be soon released with the dataset, as well as the post-processing code. 
+OCR-RCNN-v2 is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed (640*480 ).  Current version can also run in  laptops with at least 2GB  GPU memory.  The Nvidia TX-2 compatible version will be soon released with the dataset, as well as the post-processing code. 
 
 ### Requirements
 

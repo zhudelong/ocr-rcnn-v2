@@ -2,6 +2,7 @@
 from __future__ import print_function
 import os
 import cv2
+import imageio
 import PIL.Image
 import numpy as np
 import tensorflow as tf
@@ -41,11 +42,18 @@ def get_image_name_list(target_path):
         image_name_list.append(image_name.split('.')[0])
     return image_name_list
 
+def warm_up(detector, recognizer):
+  image = imageio.imread('./test_panels/1.jpg')
+  button = imageio.imread('./test_buttons/0_0.png')
+  detector.predict(image)
+  recognizer.predict(button)
+
 if __name__ == '__main__':
     data_dir = './test_panels'
     data_list = get_image_name_list(data_dir)
     detector = ButtonDetector()
     recognizer = CharacterRecognizer(verbose=False)
+    warm_up(detector, recognizer)
     overall_time = 0
     for data in data_list:
       img_path = os.path.join(data_dir, data+'.jpg')
@@ -59,9 +67,9 @@ if __name__ == '__main__':
       time = (t1-t0)/cv2.getTickFrequency()
       overall_time += time
       print('Time elapsed: {}'.format(time))
-      print(img_np.shape)
 
     average_time = overall_time / len(data_list)
     print('Average_used:{}'.format(average_time))
-
+    detector.clear_session()
+    recognizer.clear_session()
 
