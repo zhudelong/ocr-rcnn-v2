@@ -35,7 +35,7 @@ For Nvidia TX-2 platform:
 
 1. Flash your system with [JetPack 4.2](<https://developer.nvidia.com/embedded/jetpack>).
 
-2. We have to install tensorflow-1.12.0 by compiling source code 
+2. We have to install tensorflow-1.12.0 by compiling source code, but if you want to try our [wheel](https://drive.google.com/file/d/1HVXrPZO29loYVdoaPOZDRlB-lB92OuKC/view?usp=sharing), just ignore the following procedure. 
 
    1. Start TX2 power mode.
 
@@ -69,6 +69,7 @@ For Nvidia TX-2 platform:
    4. Download tensorflow source code and check out r1.12
 
       ```bash
+      cd ~/src
       git clone https://github.com/tensorflow/tensorflow.git
       git checkout r1.12
       ```
@@ -78,26 +79,27 @@ For Nvidia TX-2 platform:
    6. Configure tensorflow-1.12,  please refer to [item-9](https://jkjung-avt.github.io/build-tensorflow-1.8.0/) and the official [doc](<https://www.tensorflow.org/install/source>).
 
       ```bash
-      cd ~/src/tensorflow-1.8.0
+      cd ~/src/tensorflow
       ./configure
       ```
 
    7. Start compiling tensorflow-1.12
 
       ```bash
-      bazel build --config=opt --config=cuda --local_resources 8192,2.0,1.0  //tensorflow/tools/pip_package:build_pip_package
+      bazel build --config=opt --config=cuda --local_resources 4096,2.0,1.0  //tensorflow/tools/pip_package:build_pip_package --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"
       ```
 
-   8. Make the pip wheel file.
+   8. Make the pip wheel file, which will be put in wheel folder.
 
       ```bash
-      bazel-bin/tensorflow/tools/pip_package/build_pip_package wheel/tensorflow_pkg
+      ./bazel-bin/tensorflow/tools/pip_package/build_pip_package wheel/tensorflow_pkg
       ```
 
    9. Install tensorflow with pip.
 
       ```
-      sudo pip install ~/src/tensorflow-1.12.0/wheel/tensorflow_pkg/tensorflow-1.12.0-cp27-cp27m-linux_aarch64.whl
+      cd wheel/tensorflow_pkg
+      sudo pip tensorflow-1.12.1-cp27-cp27mu-linux_aarch64.whl
       ```
 
 3. Run the python code as in x86_64 platform.
