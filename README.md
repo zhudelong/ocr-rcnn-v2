@@ -106,8 +106,21 @@ For Nvidia TX-2 platform:
 
 3. Run the python code in TX2 platform.
 
-    1. ``python inference_tx2.py`` (~0.7s per image, without optimization)
-    2. The model can be converted to tensorrt engine for faster inference. If you are interested in converting the model by yourself, please check [here](https://jkjung-avt.github.io/tf-trt-models/)
+   1. ``python inference_tx2.py`` (~0.7s per image, without optimization)
+   2. The model can be converted to tensorrt engine for faster inference. If you are interested in converting the model by yourself, please check [here](https://jkjung-avt.github.io/tf-trt-models/)
+
+If you find this work is helpful to your project, please consider cite our paper:
+
+```
+@inproceedings{zhu2018novel,
+  title={A Novel OCR-RCNN for Elevator Button Recognition},
+  author={Zhu, Delong and Li, Tingguang and Ho, Danny and Zhou, Tong and Meng, Max QH},
+  booktitle={2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={3626--3631},
+  year={2018},
+  organization={IEEE}
+}
+```
 
 ### Demonstrations
 
