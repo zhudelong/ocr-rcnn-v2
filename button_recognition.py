@@ -18,12 +18,15 @@ charset = {'0': 0,  '1': 1,  '2': 2,  '3': 3,  '4': 4,  '5': 5,
            '*': 42, '%': 43, '?': 44, '!': 45, '+': 46} # <nul> = +
 
 class ButtonRecognizer:
-  def __init__(self, rcnn_path= None, ocr_path=None, use_trt=False, precision='FP16', use_optimized=False):
+  def __init__(self, rcnn_path= None, ocr_path=None,
+               use_trt=False, precision='FP16', use_optimized=False,
+               use_tx2=False):
     self.ocr_graph_path = ocr_path
     self.rcnn_graph_path = rcnn_path
     self.use_trt = use_trt
     self.precision=precision  #'INT8, FP16, FP32'
     self.use_optimized = use_optimized
+    self.use_tx2 = use_tx2 # if use tx2, gpu memory is limited to 3GB
     self.session = None
 
     self.ocr_input = None
@@ -117,9 +120,11 @@ class ButtonRecognizer:
       self.rcnn_output = [rcnn_boxes, rcnn_scores, rcnn_number, ocr_boxes]
       self.ocr_input = ocr_input
       self.ocr_output = [ocr_chars, ocr_beliefs]
-
-    self.session = tf.Session(graph=ocr_rcnn_graph)
-
+    if self.use_tx2:
+      gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=3.0/8.0)
+      self.session = tf.Session(graph=ocr_rcnn_graph, config=tf.ConfigProto(gpu_options=gpu_options))
+    else:
+      self.session = tf.Session(graph=ocr_rcnn_graph)
   def clear_session(self):
     if self.session is not None:
       self.session.close()

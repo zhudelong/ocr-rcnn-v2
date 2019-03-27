@@ -1,6 +1,6 @@
 # Accurate and Efficient Elevator Button Localization
 
-OCR-RCNN-v2 is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed ~10FPS (640*480)  on a graphical card (>=GTX950).  We have also tested on a laptop installed with a GTX950M (2G memory). It can achieves a running speed of ~6FPS. We are working on updating the TX2 compatible versions to make it work with JetPack 4.2,  which will be soon released with the dataset, as well as the post-processing code. 
+OCR-RCNN-v2 is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed ~10FPS (640*480)  on a graphical card (>=GTX950).  We have also tested on a laptop installed with a GTX950M (2G memory). It can achieves a running speed of ~6FPS. We are working on optimizing the TX2 version to make it faster,  which will be soon released with the dataset, as well as the post-processing code. 
 
 ### Requirements
 
@@ -22,8 +22,8 @@ Before running the code, please first download the [models](https://drive.google
 
 For running in laptops and desktops (x86_64), you may need to install some packages :
 
-1. `sudo apt install libjpeg-dev libpng12-dev libfreetype6-dev libxml2-dev libxslt1-dev`
-2. `pip install pillow, matplotlib, lxml` 
+1. `sudo apt install libjpeg-dev libpng12-dev libfreetype6-dev libxml2-dev libxslt1-dev ttf-mscorefonts-installer`
+2. `pip install pillow matplotlib lxml imageio --user` 
 3. `git clone https://github.com/zhudelong/ocr-rcnn-v2.git`
 4. `cd ocr-rcnn-v2`
 5. ``mv frozen/ ocr-rcnn-v2/``
@@ -40,7 +40,7 @@ For Nvidia TX-2 platform:
    1. Start TX2 power mode.
 
       ```bash
-      nvpmodel -m 0
+      sudo nvpmodel -m 0
       ```
 
    2. Install some dependencies
@@ -48,6 +48,7 @@ For Nvidia TX-2 platform:
       ```bash
       sudo apt-get install openjdk-8-jdk
       sudo apt-get install libhdf5-dev libblas-dev gfortran
+      sudo apt-get install libfreetype6-dev libpng-dev pkg-config 
       sudo pip install six mock h5py enum34 scipy numpy
       sudo pip install keras
       ```
@@ -102,11 +103,10 @@ For Nvidia TX-2 platform:
       sudo pip tensorflow-1.12.1-cp27-cp27mu-linux_aarch64.whl
       ```
 
-3. Run the python code as in x86_64 platform.
+3. Run the python code in TX2 platform.
 
-    The model can be converted to tensorrt engine for faster inference. We are working on migrating the model from JetPack3.3 to 4.2.
-
-    If you are interested in converting the model by yourself, please check [here](https://jkjung-avt.github.io/tf-trt-models/)
+    1. ``python inference_tx2.py`` (~0.7s per image, without optimization)
+    2. The model can be converted to tensorrt engine for faster inference. If you are interested in converting the model by yourself, please check [here](https://jkjung-avt.github.io/tf-trt-models/)
 
 ### Demonstrations
 
