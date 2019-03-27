@@ -20,16 +20,17 @@ Before running the code, please first download the [models](https://drive.google
 4. *detection_graph_640x480_optimized.pb*: an optimized version of the detection model.
 5. *ocr_graph_optimized.pb*:  an optimized version of the recognition model.
 
-For running in laptops and desktops (x86_64), you may need to install some packages :
+For running on laptops and desktops (x86_64), you may need to install some packages :
 
-1. `sudo apt install libjpeg-dev libpng12-dev libfreetype6-dev libxml2-dev libxslt1-dev ttf-mscorefonts-installer`
-2. `pip install pillow matplotlib lxml imageio --user` 
-3. `git clone https://github.com/zhudelong/ocr-rcnn-v2.git`
-4. `cd ocr-rcnn-v2`
-5. ``mv frozen/ ocr-rcnn-v2/``
-6. `python inference.py`  (slow version with two models loaded separately) 
-7. ``python inference_640x480.py`` (fast version with two models merged)
-8. `python ocr-rcnn-v2-visual.py` (for visualization)
+1. `sudo apt install libjpeg-dev libpng12-dev libfreetype6-dev libxml2-dev libxslt1-dev `
+2. `sudo apt install ttf-mscorefonts-installer`
+3. `pip install pillow matplotlib lxml imageio --user` 
+4. `git clone https://github.com/zhudelong/ocr-rcnn-v2.git`
+5. `cd ocr-rcnn-v2`
+6. ``mv frozen/ ocr-rcnn-v2/``
+7. `python inference.py`  (slow version with two models loaded separately) 
+8. ``python inference_640x480.py`` (fast version with two models merged)
+9. `python ocr-rcnn-v2-visual.py` (for visualization)
 
 For Nvidia TX-2 platform:
 
@@ -49,8 +50,8 @@ For Nvidia TX-2 platform:
       sudo apt-get install openjdk-8-jdk
       sudo apt-get install libhdf5-dev libblas-dev gfortran
       sudo apt-get install libfreetype6-dev libpng-dev pkg-config 
-      sudo pip install six mock h5py enum34 scipy numpy
-      sudo pip install keras
+      pip install six mock h5py enum34 scipy numpy --user
+      pip install keras --user
       ```
 
    3. Download Bazel building tool
@@ -87,7 +88,7 @@ For Nvidia TX-2 platform:
    7. Start compiling tensorflow-1.12
 
       ```bash
-      bazel build --config=opt --config=cuda --local_resources 4096,2.0,1.0  //tensorflow/tools/pip_package:build_pip_package --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"
+      bazel build --config=opt --config=cuda --local_resources 4096,2.0,1.0 //tensorflow/tools/pip_package:build_pip_package --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"
       ```
 
    8. Make the pip wheel file, which will be put in wheel folder.
@@ -100,7 +101,7 @@ For Nvidia TX-2 platform:
 
       ```
       cd wheel/tensorflow_pkg
-      sudo pip tensorflow-1.12.1-cp27-cp27mu-linux_aarch64.whl
+      pip tensorflow-1.12.1-cp27-cp27mu-linux_aarch64.whl --user
       ```
 
 3. Run the python code in TX2 platform.
