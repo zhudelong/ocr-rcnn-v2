@@ -12,6 +12,8 @@ OCR-RCNN-v2 is designed for autonomous elevator manipulation, the goal of which 
 
 ### Inference
 
+Note: the inference code is moved to **perception** branch and the master branch is used for holding the whole system code, so please check out perception branch for inference!
+
 Before running the code, please first download the [models](https://drive.google.com/file/d/1FVXI-G-EsCrkKbknhHL-9Y1pBshY7JCv/view?usp=sharing) into the code folder. There are five frozen tensorflow models:
 
 1. *detection_graph.pb*: a general detection model that can handle panel images with arbitrary size.
