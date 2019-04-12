@@ -6,7 +6,7 @@ import tensorflow as tf
 from PIL import Image, ImageDraw, ImageFont
 from utils.ops import native_crop_and_resize
 from utils import visualization_utils as vis_util
-import tensorflow.contrib.tensorrt as trt
+#import tensorflow.contrib.tensorrt as trt
 
 charset = {'0': 0,  '1': 1,  '2': 2,  '3': 3,  '4': 4,  '5': 5,
            '6': 6,  '7': 7,  '8': 8,  '9': 9,  'A': 10, 'B': 11,
@@ -23,6 +23,7 @@ class ButtonRecognizer:
                use_tx2=False):
     self.ocr_graph_path = ocr_path
     self.rcnn_graph_path = rcnn_path
+    self.pwd = os.path.dirname(os.path.realpath(__file__))
     self.use_trt = use_trt
     self.precision=precision  #'INT8, FP16, FP32'
     self.use_optimized = use_optimized
@@ -42,10 +43,16 @@ class ButtonRecognizer:
     for key in charset.keys():
       self.idx_lbl[charset[key]] = key
     self.load_and_merge_graphs()
+    self.warm_up()
     print('Button recognizer initialized!')
 
   def __del__(self):
     self.clear_session()
+    print('recognition session released!')
+
+  def warm_up(self):
+    image = imageio.imread(os.path.join(self.pwd,'test_panels/1.jpg'))
+    self.predict(image)
 
   def optimize_rcnn(self, input_graph_def):
     trt_graph = trt.create_inference_graph(
@@ -68,9 +75,9 @@ class ButtonRecognizer:
   def load_and_merge_graphs(self):
     # check graph paths
     if self.ocr_graph_path is None:
-      self.ocr_graph_path = './frozen_model/ocr_graph.pb'
+      self.ocr_graph_path = os.path.join(self.pwd, 'frozen_model/ocr_graph.pb')
     if self.rcnn_graph_path is None:
-      self.rcnn_graph_path = './frozen_model/detection_graph_640x480.pb'
+      self.rcnn_graph_path = os.path.join(self.pwd, 'frozen_model/detection_graph_640x480.pb')
     if self.use_optimized:
       self.ocr_graph_path.replace('.pb', '_optimized.pb')
       self.rcnn_graph_path.replace('.pb', '_optimized.pb')
@@ -87,8 +94,8 @@ class ButtonRecognizer:
         detection_graph_def.ParseFromString(serialized_graph)
         # for node in detection_graph_def.node:
         #   print node.name
-        if self.use_trt:
-          detection_graph_def = self.optimize_rcnn(detection_graph_def)
+        #if self.use_trt:
+          #detection_graph_def = self.optimize_rcnn(detection_graph_def)
         tf.import_graph_def(detection_graph_def, name='detection')
 
       # load character recognition graph definition
@@ -96,8 +103,8 @@ class ButtonRecognizer:
         recognition_graph_def = tf.GraphDef()
         serialized_graph = fid.read()
         recognition_graph_def.ParseFromString(serialized_graph)
-        if self.use_trt:
-          recognition_graph_def = self.optimize_ocr(recognition_graph_def)
+        #if self.use_trt:
+          #recognition_graph_def = self.optimize_ocr(recognition_graph_def)
         tf.import_graph_def(recognition_graph_def, name='recognition')
 
       # retrive detection tensors

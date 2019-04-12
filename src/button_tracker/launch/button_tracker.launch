@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="button_tracker" type="button_tracker.py" name="button_tracker" output="screen">
+  <param name="img_only" value="false"/>
+  <param name="image_path" value="$(find button_tracker)/test_samples"/>
+  <param name="image_number" value="4"/>
+  <param name="video_path" value="$(find button_tracker)/test_samples/sample-4.MOV"/>
+  </node>
+</launch>

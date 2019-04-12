@@ -1,4 +1,6 @@
 **/.idea
+.catkin_tools/*
+**/.catkin_tools
 .idea/*
 *.tmp
 **/*.launch~

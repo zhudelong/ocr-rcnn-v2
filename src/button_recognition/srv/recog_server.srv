@@ -1,0 +1,3 @@
+sensor_msgs/CompressedImage image
+---
+recog_result box
