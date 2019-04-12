@@ -14,7 +14,7 @@ OCR-RCNN-v2 is designed for autonomous elevator manipulation, the goal of which 
 
 Note: the inference code is moved to **perception** branch and the master branch is used for holding the whole system code, so please check out perception branch for inference!
 
-Before running the code, please first download the [models](https://drive.google.com/file/d/1FVXI-G-EsCrkKbknhHL-9Y1pBshY7JCv/view?usp=sharing) into the code folder. There are five frozen tensorflow models:
+Before running the code, please first download the [model](https://drive.google.com/file/d/1FVXI-G-EsCrkKbknhHL-9Y1pBshY7JCv/view?usp=sharing) file into the code folder and unzip it. There are five frozen tensorflow models:
 
 1. *detection_graph.pb*: a general detection model that can handle panel images with arbitrary size.
 2.  *ocr_graph.pb*: a character recognition model that can handle button images with a size of 180x180.
@@ -129,10 +129,11 @@ If you find this work is helpful to your project, please consider cite our paper
 Two demo-images are listed as follows. They are screenshots from two Youtube videos. The character recognition results are visualized at the center of each bounding box. 
 
   <p align="center">
-    <img src="./demos/image3.jpg" width=960 height=540>
+    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/image3.jpg" width=960 height=540>
     Image Source: [https://www.youtube.com/watch?v=bQpEYpg1kLg&t=8s]
   </p>
   <p align="center">
-    <img src="./demos/image2.jpg" width=960 height=540>
+    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/image2.jpg" width=960 height=540>
     Image Source: [https://www.youtube.com/watch?v=k1bTibYQjTo&t=9s]
   </p>
+
