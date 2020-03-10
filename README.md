@@ -1,7 +1,8 @@
 # OCR-RCNN: An Accurate and Efficient Framework for Elevator Button Recognition
 
   <p align="center">
-    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/demo_10.png">
+    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/demo_10.jpg">
+
 
 Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed ~10FPS (640*480)  on a graphical card (>=GTX950).  We have also tested on a laptop installed with a GTX950M (2G memory). It can achieves a running speed of ~6FPS. We are working on optimizing the TX2 version to make it faster,  which will be soon released with the dataset, as well as the post-processing code. 
 
