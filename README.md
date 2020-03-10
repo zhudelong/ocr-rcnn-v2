@@ -1,6 +1,9 @@
 # OCR-RCNN: An Accurate and Efficient Framework for Elevator Button Recognition
 
-OCR-RCNN-v2 is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed ~10FPS (640*480)  on a graphical card (>=GTX950).  We have also tested on a laptop installed with a GTX950M (2G memory). It can achieves a running speed of ~6FPS. We are working on optimizing the TX2 version to make it faster,  which will be soon released with the dataset, as well as the post-processing code. 
+  <p align="center">
+    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/demo_10.png">
+
+Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed ~10FPS (640*480)  on a graphical card (>=GTX950).  We have also tested on a laptop installed with a GTX950M (2G memory). It can achieves a running speed of ~6FPS. We are working on optimizing the TX2 version to make it faster,  which will be soon released with the dataset, as well as the post-processing code. 
 
 ### Requirements
 
@@ -129,11 +132,12 @@ If you find this work is helpful to your project, please consider cite our paper
 Two demo-images are listed as follows. They are screenshots from two Youtube videos. The character recognition results are visualized at the center of each bounding box. 
 
   <p align="center">
-    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/image3.jpg" width=960 height=540>
+    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/image3.jpg" >
     Image Source: [https://www.youtube.com/watch?v=bQpEYpg1kLg&t=8s]
   </p>
   <p align="center">
-    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/image2.jpg" width=960 height=540>
+    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/image2.jpg">
     Image Source: [https://www.youtube.com/watch?v=k1bTibYQjTo&t=9s]
   </p>
+
 
